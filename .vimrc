@@ -16,8 +16,7 @@ Bundle 'elzr/vim-json'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'scrooloose/syntastic'
-Bundle 'jeffkreeftmeijer/vim-numbertoggle'
-Bundle 'ervandew/supertab'
+Bundle "Valloric/YouCompleteMe"
 Bundle 'kien/ctrlp.vim'
 Bundle 'Raimondi/delimitMate.git'
 Bundle 'SirVer/ultisnips'
@@ -64,6 +63,7 @@ let mapleader = "\\"
 
 set background=dark
 set number
+set relativenumber
 
 set ignorecase
 set smartcase
@@ -123,17 +123,6 @@ nnoremap <C-z> :update<CR>
 inoremap <C-z> <ESC>:update<CR>a
 
 let g:UltiSnipsEditSplit='horizontal'
-
-set wildignore+=*/build/*
-set wildignore+=*/eclipse_build/*
-
-func! UnfutureTypes()
-   silent s/\C\v(^\s*|(public|private|protected) )@<!Future\< ?([^ ]+|\w+\<.*\>) ?\> (future)?([^ ,]+)/\3 \l\5/g
-endfunc
-
-func! UnfutureValues()
-   s/\C\vfuture(ControlFlow)@!([^ ,]+)/\l\2/g
-endfunc
 
 set laststatus=2
 " now set it up to change the status line based on mode

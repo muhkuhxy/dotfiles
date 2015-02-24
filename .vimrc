@@ -26,24 +26,9 @@ Bundle 'godlygeek/tabular'
 Bundle 'tpope/vim-abolish'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-lastpat'
-
-" The following are examples of different formats supported.
-" Keep bundle commands between here and filetype plugin indent on.
-" scripts on GitHub repos
-"Bundle 'tpope/vim-fugitive'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'tpope/vim-rails.git'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" scripts from http://vim-scripts.org/vim/scripts.html
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
-" scripts not on GitHub
-"Bundle 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Bundle 'file:///home/gmarik/path/to/plugin'
-" ...
+Bundle 'mattn/emmet-vim'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-fugitive'
 
 filetype plugin indent on     " required
 "
@@ -60,6 +45,7 @@ syntax on
 colorscheme solarized
 
 let mapleader = "\\"
+let localleader = ","
 
 set background=dark
 set number
@@ -119,9 +105,6 @@ nnoremap <leader>ev :split $MYVIMRC<CR>
 nnoremap <C-j> :m+1<CR>==
 nnoremap <C-k> :m-2<CR>== 
 
-nnoremap <C-z> :update<CR>
-inoremap <C-z> <ESC>:update<CR>a
-
 let g:UltiSnipsEditSplit='horizontal'
 
 set laststatus=2
@@ -130,4 +113,23 @@ if version >= 700
   au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
   au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
 endif
+
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,vash,jade EmmetInstall
+
+set wildignore+=*/node_modules/*
+
+nnoremap H ^
+nnoremap L $
+
+nnoremap ; :
+
+inoremap kj <esc>
+inoremap jk <esc>
+inoremap <esc> <nop>
+
+augroup filetype_java
+   autocmd!
+   autocmd FileType java nnoremap <buffer> <f2> :call JavaTest
+augroup END
 

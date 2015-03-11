@@ -1,3 +1,4 @@
+" vundle {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -9,28 +10,25 @@ call vundle#rc()
 "call vundle#rc(path)
 
 " let Vundle manage Vundle, required
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-Bundle 'tpope/vim-surround'
-Bundle 'elzr/vim-json'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'scrooloose/syntastic'
-Bundle "Valloric/YouCompleteMe"
-Bundle 'kien/ctrlp.vim'
-Bundle 'Raimondi/delimitMate.git'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'tpope/vim-abolish'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kana/vim-textobj-lastpat'
-Bundle 'mattn/emmet-vim'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-fugitive'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Raimondi/delimitMate.git'
+Plugin 'SirVer/ultisnips'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rstacruz/sparkup'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'altercation/vim-colors-solarized'
 
 filetype plugin indent on     " required
+
 "
 " Brief help
 " :BundleList          - list configured bundles
@@ -40,60 +38,59 @@ filetype plugin indent on     " required
 "
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
+" }}}
 
+" syntax/color {{{
 syntax on
+augroup precolorscheme
+   autocmd!
+   autocmd ColorScheme * highlight CursorLine cterm=underline term=underline
+   " autocmd Syntax * match ExtraWhitespace /\s\+$/   
+   " autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red ctermfg=Cyan
+augroup END
 colorscheme solarized
+" }}}
 
+" settings {{{
 let mapleader = "\\"
 let localleader = ","
 
 set background=dark
+set cursorline
+set expandtab
+set hidden
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set list
+set listchars=trail:·,tab:\ \ 
+set mouse=a
 set number
 set relativenumber
-
-set ignorecase
-set smartcase
-set incsearch
-set hlsearch
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-
-set expandtab
-set shiftwidth=3
-set softtabstop=3
 set scrolloff=5
-set mouse=a
-set hidden
-
+set shiftwidth=3
+set smartcase
+set softtabstop=3
+set wildignore+=*/node_modules/*
 set wildmode=longest,list
+" }}}
 
-set cursorline
-highlight CursorLine cterm=underline term=underline
+" basic mappings --- {{{
+nnoremap H ^
+nnoremap L $
 
-highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+nnoremap ; :
 
-filetype indent on
-filetype plugin on
+inoremap kj <esc>
+inoremap <esc> <nop>
 
-iabbrev jF jira FPHAS
-
-let g:vim_json_syntax_conceal = 0
-let g:syntastic_json_checkers = ['jsonlint']
+" clear search highlighting
+nnoremap <c-l> :<c-u>nohlsearch<c-l><cr>
 
 " open ctrlp
 nnoremap <leader>f :CtrlP<CR>
 nnoremap <leader>F :CtrlPCurWD<CR>
-
-" disable arrow keys
-" noremap <Up> <nop>
-" noremap <Down> <nop>
-" noremap <Left> <nop>
-" noremap <Right> <nop>
-" noremap <Esc> <nop>
-
-" always search magically
-" nnoremap / /\v
-" cnoremap s/ s/\v
 
 " search command line
 cnoremap <C-p> <Up>
@@ -104,32 +101,19 @@ nnoremap <leader>ev :split $MYVIMRC<CR>
 
 nnoremap <C-j> :m+1<CR>==
 nnoremap <C-k> :m-2<CR>== 
+" --- }}}
+
+" plugin settings {{{
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
 
 let g:UltiSnipsEditSplit='horizontal'
+" }}}
 
-set laststatus=2
-" now set it up to change the status line based on mode
-if version >= 700
-  au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
-  au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
-endif
-
-let g:user_emmet_install_global = 0
-autocmd FileType html,css,vash,jade EmmetInstall
-
-set wildignore+=*/node_modules/*
-
-nnoremap H ^
-nnoremap L $
-
-nnoremap ; :
-
-inoremap kj <esc>
-inoremap jk <esc>
-inoremap <esc> <nop>
-
-augroup filetype_java
+" filetype specific {{{
+augroup filetype_vim
    autocmd!
-   autocmd FileType java nnoremap <buffer> <f2> :call JavaTest
+   autocmd FileType vim setlocal foldmethod=marker
 augroup END
+" }}}
 

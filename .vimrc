@@ -45,7 +45,7 @@ syntax on
 augroup precolorscheme
    autocmd!
    autocmd ColorScheme * highlight CursorLine cterm=underline term=underline
-   " autocmd Syntax * match ExtraWhitespace /\s\+$/   
+   " autocmd Syntax * match ExtraWhitespace /\s\+$/
    " autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red ctermfg=Cyan
 augroup END
 colorscheme solarized
@@ -102,9 +102,10 @@ cnoremap <C-n> <Down>
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>ev :split $MYVIMRC<CR>
+nnoremap <leader>x :<c-u>bwipeout<cr>
 
 nnoremap <C-j> :m+1<CR>==
-nnoremap <C-k> :m-2<CR>== 
+nnoremap <C-k> :m-2<CR>==
 " --- }}}
 
 " plugin settings {{{

@@ -52,9 +52,6 @@ colorscheme solarized
 " }}}
 
 " settings {{{
-let mapleader = "\\"
-let localleader = ","
-
 set background=dark
 set cursorline
 set expandtab
@@ -74,6 +71,13 @@ set smartcase
 set softtabstop=3
 set wildignore+=*/node_modules/*
 set wildmode=longest,list
+
+let mapleader = "\\"
+let localleader = ","
+
+let g:netrw_liststyle = 3
+let g:netrw_list_hide = '\.sw[po]$'
+let g:netrw_banner = 0
 " }}}
 
 " basic mappings --- {{{
